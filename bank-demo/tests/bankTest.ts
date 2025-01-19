@@ -77,7 +77,7 @@ try {
 try {
     bank.withdrawMoney(1234567890, 1000);
     const account = accounts.find(acc => acc.id === 1234567890);
-    if (account?.balance === 3448 - 1000) {
+    if (account?.balance === 4448 - 1000) {
         console.log('Scenario 8 passed');
     } else {
         console.log('Scenario 8 failed');
@@ -108,4 +108,24 @@ try {
     console.log('Scenario 11 failed');
 } catch (e) {
     console.log('Scenario 11 passed');
+}
+
+// Scenario 12: Check balance of an account
+try {
+    const bal = bank.checkBalance(1234567890);
+    if (bal == 3448) {
+        console.log('Scenario 12 passed');
+    } else {
+        console.log('Scenario 12 failed');
+    }
+} catch (e) {
+    console.log('Scenario 12 passed');
+}
+
+// Scenario 13: Check balance of an account
+try {
+    bank.checkBalance(2312);
+    console.log('Scenario 13 failed');
+} catch (e) {
+    console.log('Scenario 13 passed');
 }
