@@ -42,7 +42,7 @@ export class Bank implements BankType {
         return accountNumber.toString().length === 10;
     }
     /**
-     * 
+     * Create a new bank account
      * @param username - a string representing the username of the customer
      * @param age - a number representing the age of the customer
      * @param accountNumber - a number representing the account number of the customer that needs to be created
@@ -68,5 +68,20 @@ export class Bank implements BankType {
         }
         this.accounts.push(newAccount);
         return newAccount;
+    }
+
+    /**
+     * Deposit money into a bank account.
+     * @param accountNumber - The account id.
+     * @param amount - The money to be deposited.
+     * @throws Error if the account does not exist or if the deposit total is invalid.
+     */
+    depositMoney(accountNumber: number, amount: number): void {
+        if (amount <= 0) {
+            throw new Error('Invalid amount to deposit');
+        } 
+        const account = this.findAccount(accountNumber);
+        if (!account) throw new Error('Account not found');
+        account.balance += amount;
     }
 }
