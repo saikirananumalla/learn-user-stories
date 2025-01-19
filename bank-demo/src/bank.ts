@@ -81,7 +81,29 @@ export class Bank implements BankType {
             throw new Error('Invalid amount to deposit');
         } 
         const account = this.findAccount(accountNumber);
-        if (!account) throw new Error('Account not found');
+        if (!account) {
+            throw new Error('Account not found');
+        } 
         account.balance += amount;
+    }
+
+    /**
+     * Withdraw money into a bank account.
+     * @param accountNumber - The account id.
+     * @param amount - The money to be withdrawn.
+     * @throws Error if the account does not exist or if the withdraw total is invalid.
+     */
+    withdrawMoney(accountNumber: number, amount: number): void {
+        if (amount <= 0) {
+            throw new Error('Invalid amount to withdraw');
+        } 
+        const account = this.findAccount(accountNumber);
+        if (!account) {
+            throw new Error('Account not found');
+        }
+        if (account.balance < amount) {
+            throw new Error('Insufficient balance in the account');
+        }
+        account.balance -= amount;
     }
 }

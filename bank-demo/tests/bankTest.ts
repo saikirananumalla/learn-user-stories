@@ -7,10 +7,10 @@ const bank = new Bank(accounts, usernames);
 // Scenario 1: customer is able to create a new bank account
 const acc = bank.createAccount('user1', 23, 1234567892);
 if(acc.id !== 1234567892 || acc.balance !== 0 || acc.id.toString().length !== 10) {
-    console.log('Scenario 1 failed');
+    console.log('Scenario 0 failed');
 }
 else {
-    console.log('Scenario 1 passed');
+    console.log('Scenario 0 passed');
 }
 try {
     const acc1 = bank.createAccount('user1', 23, 1234567892);
@@ -65,10 +65,47 @@ try {
     console.log('Scenario 6 passed');
 }
 
-// Scenario 6: Deposit fails due to invalid deposit amount
+// Scenario 7: Deposit fails due to invalid deposit amount
 try {
     bank.depositMoney(1234567890, -10);
     console.log('Scenario 7 failed');
 } catch (e) {
     console.log('Scenario 7 passed');
+}
+
+// Scenario 8: Withdrawl is successful
+try {
+    bank.withdrawMoney(1234567890, 1000);
+    const account = accounts.find(acc => acc.id === 1234567890);
+    if (account?.balance === 3448 - 1000) {
+        console.log('Scenario 8 passed');
+    } else {
+        console.log('Scenario 8 failed');
+    }
+} catch (e) {
+    console.log('Scenario 8 failed');
+}
+
+// Scenario 9: Withdraw fails due to invalid account number
+try {
+    bank.withdrawMoney(2323, 1000);
+    console.log('Scenario 9 failed');
+} catch (e) {
+    console.log('Scenario 9 passed');
+}
+
+// Scenario 10: Withdraw fails for invalid amount
+try {
+    bank.depositMoney(1234567890, -10);
+    console.log('Scenario 10 failed');
+} catch (e) {
+    console.log('Scenario 10 passed');
+}
+
+// Scenario 11: Withdraw fails due to insufficient amount
+try {
+    bank.withdrawMoney(1234567890, 10000);
+    console.log('Scenario 11 failed');
+} catch (e) {
+    console.log('Scenario 11 passed');
 }
